@@ -7,17 +7,18 @@ description: Generate detailed implementation plans from feature specifications 
 
 ## Overview
 
-Automatically generate a comprehensive implementation plan by analyzing feature specifications and project patterns. This skill bridges the gap between requirements and implementation by synthesizing feature docs and project patterns into a structured, actionable plan document.
+Automatically generate a comprehensive backend implementation plan by analyzing feature specifications and project patterns. This skill bridges the gap between requirements and implementation by synthesizing feature docs and project patterns into a structured, actionable plan document. **Optimized for backend services** - focuses on APIs, database integration, and service logic without frontend or test file generation.
 
 ## When to Use
 
-- You have feature specification(s) and project pattern documentation
+- You have backend feature specification(s) and project pattern documentation
 - You need to create a detailed plan before implementation
 - Feature requirements are defined in markdown files
 - You want to ensure consistency with existing project patterns
 - You need to identify tasks, dependencies, and risks upfront
+- Building backend services/APIs (no frontend or test generation)
 
-**When NOT to use:** When specs are incomplete or unclear, or when feature requirements are still being defined.
+**When NOT to use:** When specs are incomplete or unclear, when feature requirements are still being defined, or for frontend-focused features.
 
 ## How It Works
 
@@ -67,15 +68,15 @@ The script outputs a JSON object to stdout with the following structure:
   "status": "success",
   "plan_file": "/path/to/implementation-plan.md",
   "stats": {
-    "tasks_generated": 12,
+    "tasks_generated": 6,
     "phases": 3,
-    "total_files_touched": 28,
     "estimated_scope": "Medium"
   },
   "summary": {
-    "overview": "Description of what will be built",
-    "architecture_decisions": ["Decision 1", "Decision 2"],
-    "key_risks": ["Risk 1", "Risk 2"]
+    "overview": "Implementation plan generated from feature specifications and project patterns",
+    "features_file": "path/to/features.md",
+    "patterns_file": "path/to/patterns.md",
+    "ready_for_review": true
   }
 }
 ```
@@ -95,21 +96,24 @@ When the plan has been generated successfully, present it to the user like this:
 
 **Plan Generated Successfully**
 
-I've created a comprehensive implementation plan based on your feature specs and project patterns.
+I've created a comprehensive backend implementation plan based on your feature specs and project patterns.
 
 **Summary:**
 - **Total Tasks:** [X tasks across Y phases]
 - **Estimated Scope:** [Small/Medium/Large]
-- **Key Phases:** [Phase names]
-- **Critical Path:** [First X tasks must be completed sequentially]
+- **Key Phases:** Foundation → Core Implementation → Refinement
+- **Focus Areas:** API design, database integration, service logic, error handling
 
-**Files Touched:** Approximately [X] files across [modules/layers]
+**Task Breakdown:**
+- Phase 1: API Design & Database Schema
+- Phase 2: Core Service Implementation & API Integration
+- Phase 3: Error Handling & Code Quality
 
-**Architecture Decisions:**
-- [Decision 1]
-- [Decision 2]
+**Key Considerations:**
+- [Architectural decision 1]
+- [Architectural decision 2]
 
-**Key Risks:**
+**Main Risks:**
 - [Risk 1] - Mitigation: [strategy]
 - [Risk 2] - Mitigation: [strategy]
 
@@ -117,19 +121,21 @@ The full plan is available at: `[output-plan.md]`
 
 **Next Steps:**
 1. Review the plan document for any adjustments
-2. Identify which tasks can be parallelized
-3. Determine verification checkpoints
-4. Begin with Phase 1 tasks
+2. Confirm API design and database schema approach
+3. Begin Phase 1 tasks (Analyze & Plan, API Design & Schema)
+4. Execute Phase 2 after checkpoint approval
+5. Complete Phase 3 refinement tasks
 
 ---
 
 **Plan Document Structure:**
 - Overview and architecture decisions
-- Phase-by-phase task breakdown with acceptance criteria
+- Phase 1: Foundation (API design & database schema)
+- Phase 2: Core Implementation (service logic & API endpoints)
+- Phase 3: Refinement (error handling & code quality)
 - Verification checkpoints between phases
-- Parallelization opportunities
 - Risks and mitigations
-- Open questions
+- Open questions and notes
 
 ## Troubleshooting
 

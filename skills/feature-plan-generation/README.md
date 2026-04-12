@@ -2,9 +2,9 @@
 
 ## Overview
 
-`feature-plan-generation` là một skill tự động hóa việc tạo tài liệu kế hoạch triển khai (implementation plan) từ các file thông tin tính năng (feature specs) và các pattern của dự án.
+`feature-plan-generation` là một skill tự động hóa việc tạo tài liệu kế hoạch triển khai backend (implementation plan) từ các file thông tin tính năng (feature specs) và các pattern của dự án.
 
-**Mục đích:** Tiết kiệm thời gian lập kế hoạch và đảm bảo tính nhất quán bằng cách tự động phân tích yêu cầu và tạo ra một tài liệu kế hoạch chi tiết, có cấu trúc rõ ràng.
+**Mục đích:** Tiết kiệm thời gian lập kế hoạch và đảm bảo tính nhất quán bằng cách tự động phân tích yêu cầu và tạo ra một tài liệu kế hoạch chi tiết, có cấu trúc rõ ràng. **Tối ưu hóa cho backend** - tập trung vào API design, database integration, service logic mà không tạo file test hay frontend.
 
 ## Tính Năng Chính
 
@@ -52,43 +52,36 @@ Cho phép người dùng tạo, chỉnh sửa, xóa và quản lý công việc.
 ```
 
 ### 2. Project Patterns File (--patterns)
-File markdown mô tả pattern và quy ước của dự án:
+File markdown mô tả pattern và quy ước của dự án (backend-focused):
 
 ```markdown
 # Project Patterns & Conventions
 
 ## Technology Stack
-- **Frontend:** React 18, TypeScript, Tailwind CSS
-- **Backend:** NestJS, PostgreSQL, Prisma
-- **Testing:** Jest, React Testing Library
-- **Build:** Vite, npm
+- **Backend:** NestJS, PostgreSQL, Prisma, TypeScript
+- **API:** REST with request/response DTOs
+- **Build:** npm/yarn
 
 ## Architecture
-- **Frontend:** Component-based, hooks for state management
-- **Backend:** Service-based architecture with DTOs
+- **Backend:** Service-based architecture with Controllers, Services, Repositories
 - **Database:** Normalized schema with migrations
-- **API:** REST with consistent error handling
+- **API:** RESTful endpoints with consistent error handling
 
 ## Code Conventions
 - **Naming:** PascalCase for classes, camelCase for functions
 - **Files:** kebab-case for file names
+- **DTOs:** Data Transfer Objects for validation
 - **Imports:** Group by type (built-in, third-party, local)
-- **Tests:** Co-located with source code, .test.ts suffix
-
-## Testing Strategy
-- Unit tests for business logic
-- Integration tests for API endpoints
-- E2E tests for user flows
-- Coverage target: >80%
 
 ## Project Structure
 ```
 src/
-├── components/    # React components
+├── modules/       # Feature modules
+├── controllers/   # HTTP endpoints
 ├── services/      # Business logic
-├── api/          # API integration
-├── types/        # TypeScript types
-└── tests/        # Test files
+├── repositories/  # Database access
+├── database/      # Migrations, schemas
+└── common/        # Shared utilities
 ```
 ```
 
@@ -155,22 +148,21 @@ Khi agent sử dụng skill này:
 
 ## Tiêu Chí Plan Được Tạo
 
-### Phần I: Foundation & Setup
-- Phân tích và lập kế hoạch chi tiết
-- Chuẩn bị cấu hình và môi trường
+### Phase 1: Foundation & Setup (2 tasks)
+- Task 1.1: Analyze and Plan - Review specs, design approach
+- Task 1.2: API Design & Database Schema - Design API endpoints, database schema
 
-### Phần II: Core Implementation  
-- Triển khai tính năng chính
-- Tích hợp với các hệ thống hiện có
+### Phase 2: Core Implementation (2 tasks)
+- Task 2.1: Core Feature Implementation - Implement backend logic and services
+- Task 2.2: API Implementation & Database Integration - Implement API endpoints, integrate with DB
 
-### Phần III: Refinement & Polish
-- Xử lý lỗi và các trường hợp biên
-- Kiểm thử toàn diện
-- Chất lượng code và tài liệu
+### Phase 3: Refinement & Polish (2 tasks)
+- Task 3.1: Error Handling & Logging - Add error handling and logging
+- Task 3.2: Code Quality & Documentation - Clean code, add documentation
 
 ### Checkpoints
 - Kiểm tra sau mỗi giai đoạn chính
-- Xác minh build, test, tích hợp
+- Xác minh build, API design, tích hợp
 - Điểm dừng review trước tiếp tục
 
 ## Lợi Ích
