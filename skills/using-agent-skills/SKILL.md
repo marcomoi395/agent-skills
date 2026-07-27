@@ -38,6 +38,7 @@ Task arrives
     ├── Deprecating/migrating? ────────→ deprecation-and-migration
     ├── Writing docs/ADRs? ───────────→ documentation-and-adrs
     ├── Adding logs/metrics/alerts? ───→ observability-and-instrumentation
+    ├── Capture conversation knowledge? ───→ context-capture
     └── Deploying/launching? ─────────→ shipping-and-launch
 ```
 
@@ -154,10 +155,11 @@ For a complete feature, the typical skill sequence is:
 10. test-driven-development     → Prove each slice works
 11. code-review-and-quality     → Review before merge
 12. code-simplification         → Reduce unnecessary complexity while preserving behavior
-13. git-workflow-and-versioning → Clean commit history
+13. git-workflow-and-versioning → Clean commit history (or git-commit for release-please repos)
 14. documentation-and-adrs      → Document decisions
 15. deprecation-and-migration   → Retire old systems and move users safely when needed
 16. shipping-and-launch         → Deploy safely
+17. context-capture           → Capture durable knowledge from conversation before context is lost
 ```
 
 Not every task needs every skill. A bug fix might only need: `debugging-and-error-recovery` → `test-driven-development` → `code-review-and-quality`.
@@ -184,8 +186,10 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Review | security-and-hardening | OWASP prevention, input validation, least privilege |
 | Review | performance-optimization | Measure first, optimize only what matters |
 | Ship | git-workflow-and-versioning | Atomic commits, clean history |
+| Ship | git-commit | Conventional Commits for release-please repositories |
 | Ship | ci-cd-and-automation | Automated quality gates on every change |
 | Ship | deprecation-and-migration | Remove old systems and migrate users safely |
 | Ship | documentation-and-adrs | Document the why, not just the what |
 | Ship | observability-and-instrumentation | Structured logs, RED metrics, traces, symptom-based alerts |
 | Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |
+| Maintain | context-capture | Capture durable project knowledge from agent conversations |
