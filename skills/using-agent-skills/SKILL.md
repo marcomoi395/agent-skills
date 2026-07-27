@@ -193,3 +193,21 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Ship | observability-and-instrumentation | Structured logs, RED metrics, traces, symptom-based alerts |
 | Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |
 | Maintain | context-capture | Capture durable project knowledge from agent conversations |
+
+## Platform & Tool Reference Skills
+
+These documentation/reference skills are auto-discovered by description matching. They provide routing to official docs and best practices for specific platforms and tools:
+
+| Skill | Platform/Tool | Use For |
+|-------|--------------|---------|
+| cloudflare | Cloudflare Platform | Workers, Pages, storage (KV, D1, R2), AI, networking, security |
+| cloudflare-email-service | Cloudflare Email Service | Email sending/routing, deliverability, SPF/DKIM/DMARC |
+| cloudflare-one | Cloudflare One | Zero Trust, Access, Gateway, WARP, Tunnel, DLP, CASB |
+| cloudflare-one-migrations | Cloudflare One Migrations | Migrate from Zscaler, Palo Alto, legacy VPN/SASE |
+| agents-sdk | Cloudflare Agents SDK | Build AI agents, Durable Objects, WebSocket apps, workflows |
+| sandbox-sdk | Cloudflare Sandbox SDK | Secure code execution, code interpreters, CI/CD systems |
+| workers-best-practices | Cloudflare Workers | Production best practices, anti-patterns, code review |
+| wrangler | Wrangler CLI | Deploy, develop, manage Workers/KV/R2/D1/Queues/Workflows |
+| playwright-best-practices | Playwright Testing | E2E tests, debugging, POM, CI/CD, accessibility, performance |
+| playwright-cli | Playwright CLI | Browser automation, test generation, screenshots, debugging |
+| shadcn | shadcn/ui | Component management, styling, presets, chat interfaces |
