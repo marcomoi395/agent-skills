@@ -57,6 +57,19 @@ const REQUIRED_SECTIONS = [
 const SECTION_EXEMPT_SKILLS = {
   'using-agent-skills': 'Meta-skill — orchestrates other skills; When-to-Use and Verification are not applicable to a routing document.',
   'idea-refine':        'Legacy structure predating skill-anatomy.md — uses How-It-Works/Usage/Anti-patterns instead of standard headings. Tracked for conformance in https://github.com/addyosmani/agent-skills/issues',
+  // Platform-specific documentation retrieval skills — structured as reference guides rather than workflows
+  'cloudflare':                  'Documentation retrieval skill — provides routing to Cloudflare platform docs rather than a step-by-step workflow.',
+  'cloudflare-email-service':    'Documentation retrieval skill — provides routing to Email Service docs and decision trees rather than a step-by-step workflow.',
+  'cloudflare-one':              'Documentation retrieval skill — provides routing to Cloudflare One docs rather than a step-by-step workflow.',
+  'cloudflare-one-migrations':   'Documentation retrieval skill — provides migration planning guidance and routing to docs rather than a step-by-step workflow.',
+  'agents-sdk':                  'Documentation retrieval skill — provides routing to Agents SDK docs rather than a step-by-step workflow.',
+  'sandbox-sdk':                 'Documentation retrieval skill — provides routing to Sandbox SDK docs rather than a step-by-step workflow.',
+  'workers-best-practices':      'Documentation retrieval skill — provides best practices reference and routing to Workers docs rather than a step-by-step workflow.',
+  'wrangler':                    'Documentation retrieval skill — provides CLI reference and routing to wrangler docs rather than a step-by-step workflow.',
+  'playwright-best-practices':   'Reference skill — provides activity-based routing to comprehensive Playwright patterns rather than a single workflow.',
+  'playwright-cli':              'Documentation retrieval skill — provides CLI reference and routing to Playwright docs rather than a step-by-step workflow.',
+  'shadcn':                      'Documentation retrieval skill — provides routing to shadcn/ui docs and CLI reference rather than a step-by-step workflow.',
+  'git-commit':                  'Workflow skill with legacy structure — missing Common Rationalizations and Red Flags sections. Should be updated to match skill-anatomy.md.',
 };
 
 // Regex patterns that indicate an explicit cross-skill reference.
