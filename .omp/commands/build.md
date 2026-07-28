@@ -42,8 +42,8 @@ Before implementing any task, check for a GitHub issue URL:
    - Pattern `(\d+)-.*` → extract issue number from first capture group
    
    Compare with the issue number from the detected URL:
-   - **If they match** → You're already on the correct issue branch. Skip to step 4 (store the issue URL for commits). This commonly happens when continuing work from a previous session.
-   - **If they don't match or no issue number found in branch name** → Continue to step 2 below to create a new branch.
+   - **If they match** → You're already on the correct issue branch. Skip branch creation (steps 2-4 below) but continue to step 5 to store the issue URL. This commonly happens when continuing work from a previous session.
+   - **If they don't match or no issue number found in branch name** → Continue to steps 2-4 below to create a new branch.
 
 2. **Extract the issue number** from the URL
    - Example: `https://github.com/owner/repo/issues/10` → issue number `10`
@@ -76,8 +76,9 @@ Before implementing any task, check for a GitHub issue URL:
    
    Verify the branch was created successfully from the current branch.
 
-5. **Store the issue URL** for commit message linking (used in step 3 or 4)
-
+5. **Store the issue URL for commit message linking** (applies to both bypass and new branch scenarios)
+   
+   Save the full issue URL to be used when creating commit messages in step 3 or 4. This ensures that all commits will include `Issue: <full-url>` at the end of the subject line, whether you're on a newly created branch or continuing work on an existing issue branch.
 #### c. If no issue URL is found
 
 Skip branch creation and continue on the current branch.
