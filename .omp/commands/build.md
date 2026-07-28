@@ -7,6 +7,7 @@ Implement tasks incrementally — build, test, verify, commit. Add "auto" to run
 - `$ARGUMENTS` — optional. Either:
   - Empty (default): implement the next pending task, then stop
   - `auto` or `all`: autonomous mode — implement every task in the plan without stopping between them
+  - `<github-issue-url>`: issue-linked mode — create a branch for the issue, then implement the next task
 
 ## Steps
 
@@ -14,6 +15,7 @@ Implement tasks incrementally — build, test, verify, commit. Add "auto" to run
 
 Parse `$ARGUMENTS`:
 - If `auto` or `all` → **autonomous mode** (run the whole plan)
+- If matches `https://github.com/.*/issues/\d+` → **issue-linked mode** (create branch + implement one task)
 - Otherwise → **default mode** (one task at a time)
 
 Autonomous mode does not skip verification — it runs the same test-driven loop for every task, removing only the manual stepping between tasks.
@@ -32,7 +34,72 @@ Pick the next pending task from `tasks/todo.md` or `tasks/plan.md`. Then:
 8. **Commit with a descriptive message** — Follow `git-workflow-and-versioning` or `git-commit` skill
 9. **Mark the task complete and stop** — Update the task status and yield control
 
-### 3. Autonomous mode: Implement the whole plan
+### 3. Issue-linked mode: Create branch and implement one task
+
+When a GitHub issue URL is provided (e.g., `https://github.com/owner/repo/issues/10`), create a feature branch linked to that issue before implementing the task.
+
+#### a. Parse the issue URL
+
+Extract the issue number from the URL. Example:
+- Input: `https://github.com/marcomoi395/hera-nest/issues/10`
+- Extract: issue number `10`
+
+#### b. Determine branch naming convention
+
+Inspect the current plan (`tasks/plan.md` or `tasks/todo.md`) to understand the goal:
+- If the plan describes a **feature** (e.g., "Add authentication", "Implement dashboard") → use prefix `feat/`
+- If the plan describes a **fix** (e.g., "Fix login bug", "Resolve timeout issue") → use prefix `fix/`
+- If the plan describes a **refactor** or **chore** → use prefix `refactor/` or `chore/`
+- If unclear or general tasks → no prefix (just `10-description`)
+
+Branch name format:
+```
+<prefix>/<issue-number>-<brief-description>
+```
+
+Examples:
+- `feat/10-add-auth-module`
+- `fix/10-resolve-timeout`
+- `10-update-dependencies` (no prefix if unclear)
+
+Keep the description short (3-5 words max), lowercase, hyphen-separated.
+
+#### c. Create and checkout the new branch
+
+```bash
+git checkout -b <branch-name>
+```
+
+Verify the branch was created successfully.
+
+#### d. Implement the task
+
+Follow the exact same workflow as **default mode** (step 2 above):
+1. Read task acceptance criteria
+2. Load relevant context
+3. Write failing test (RED)
+4. Implement minimum code (GREEN)
+5. Run full test suite
+6. Run build
+7. Run formatter
+8. Commit with descriptive message
+9. Mark task complete and stop
+
+#### e. Link the issue in commit message
+
+When committing, append the issue URL to the commit message following the `git-commit` skill format:
+
+```text
+<type>: <description>. Issue: <full-url>
+```
+
+Example:
+```bash
+git commit -m "feat: implement user authentication. Issue: https://github.com/marcomoi395/hera-nest/issues/10"
+```
+
+
+### 4. Autonomous mode: Implement the whole plan
 
 Use this once a spec exists and you want to collapse plan + build into one run.
 
@@ -95,6 +162,10 @@ Print a summary: tasks completed, tests added, commits made, and anything skippe
 - **MUST** invoke `incremental-implementation` and `test-driven-development` skills — do not implement their workflows inline.
 - **MUST** write a failing test before implementing each task (RED before GREEN).
 - **MUST** run the full test suite after each task to check for regressions.
+- **MUST** create a new branch from the current branch when a GitHub issue URL is provided.
+- **MUST** extract the issue number from the URL and include it in the branch name.
+- **MUST** determine the appropriate branch prefix (feat/, fix/, etc.) based on the plan's goal.
+- **MUST** append the issue URL to the commit message in issue-linked mode.
 - **MUST** run the build after each task to verify compilation.
 - **MUST** commit after each task with a descriptive message.
 - **MUST** stage only files touched by that task — never `git add -A` blindly in autonomous mode.
