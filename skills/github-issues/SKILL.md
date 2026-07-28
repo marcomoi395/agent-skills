@@ -78,10 +78,10 @@ When auto-updating from `tasks/`:
 - ❌ **DO NOT include:**
   - Detailed todos for each phase
   - Progress tracking percentages or checkboxes
+  - Time or effort estimates
   - References section with links to docs
   - Step-by-step implementation details
   - Code snippets or technical specifications
-
 ### Example Auto-Update
 
 **User request:** `Update this issue: https://github.com/marcomoi395/hera-nest/issues/10`
