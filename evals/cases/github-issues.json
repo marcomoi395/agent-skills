@@ -1,0 +1,50 @@
+{
+  "skill_name": "github-issues",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Create a bug issue for the login page crash with SSO",
+        "top_k": 3
+      },
+      {
+        "prompt": "File a feature request to add dark mode support",
+        "top_k": 3
+      },
+      {
+        "prompt": "Update issue #42 to add the high-priority label",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create an issue to track the database migration task",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Review this pull request before I merge it",
+        "owner": "code-review-and-quality"
+      },
+      {
+        "prompt": "Write a failing test for this bug before fixing it",
+        "owner": "test-driven-development"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "kind": "execution",
+      "prompt": "Create a bug report issue for the authentication timeout problem described in auth.js",
+      "expected_output": "A properly structured bug issue created via gh api with appropriate type, title, and body",
+      "files": [
+        "github-issues"
+      ],
+      "expectations": [
+        "The issue type is set to Bug (using -f type parameter)",
+        "The issue body includes steps to reproduce, expected vs actual behavior",
+        "The gh api command is used to create the issue (not MCP tools)",
+        "The issue URL is reported back to the user"
+      ]
+    }
+  ]
+}

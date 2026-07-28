@@ -211,3 +211,4 @@ These documentation/reference skills are auto-discovered by description matching
 | playwright-best-practices | Playwright Testing | E2E tests, debugging, POM, CI/CD, accessibility, performance |
 | playwright-cli | Playwright CLI | Browser automation, test generation, screenshots, debugging |
 | shadcn | shadcn/ui | Component management, styling, presets, chat interfaces |
+| github-issues | GitHub Issues | Create, update, manage issues, labels, assignees, milestones, issue types, fields |
