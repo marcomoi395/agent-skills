@@ -54,11 +54,15 @@ The MCP server does not currently support creating, updating, or commenting on i
    - Overall project scope
    - Key milestones or phases
    - Current implementation status
-4. **Generate summary** with high-level overview only:
+4. **Record issue link** in `tasks/LINKED_ISSUES.md`:
+   - Create or update the file with issue number, title, and URL
+   - Format: `- [#10](https://github.com/owner/repo/issues/10) - Issue title`
+   - This enables branch naming based on issue numbers (e.g., `10-feature-name`)
+5. **Generate summary** with high-level overview only:
    - Brief description of what's being built
    - Main components or areas of work
    - Current status (if evident from tasks)
-5. **Update the issue** using:
+6. **Update the issue** using:
    ```bash
    gh api repos/{owner}/{repo}/issues/{issue_number} \
      -X PATCH \
@@ -82,14 +86,22 @@ When auto-updating from `tasks/`:
   - References section with links to docs
   - Step-by-step implementation details
   - Code snippets or technical specifications
-### Example Auto-Update
+### Example Auto-Update with Issue Tracking
 
 **User request:** `Update this issue: https://github.com/marcomoi395/hera-nest/issues/10`
 
 **Agent action:**
 1. Scans `tasks/` directory
 2. Identifies main work areas: authentication module, user dashboard, API endpoints
-3. Updates issue #10 with:
+3. **Records issue link** in `tasks/LINKED_ISSUES.md`:
+   ```markdown
+   # Linked GitHub Issues
+   
+   This file tracks GitHub issues linked to this project for branch creation workflows.
+   
+   - [#10](https://github.com/marcomoi395/hera-nest/issues/10) - Build NestJS authentication system
+   ```
+4. Updates issue #10 with:
 
 ```markdown
 ## Project Summary
@@ -105,8 +117,31 @@ Building a NestJS application with authentication, user management, and REST API
 Status: In Progress
 ```
 
+5. **Branch creation guidance**: When implementing, create branch using format `{issue-number}-{feature-name}`, e.g., `10-auth-system`
+
 **Note:** This workflow is triggered ONLY when the user provides a GitHub issue URL alongside the skill invocation. For normal issue creation/updates, follow the standard workflows below.
 
+### Issue Link File Format
+
+`tasks/LINKED_ISSUES.md` structure:
+
+```markdown
+# Linked GitHub Issues
+
+This file tracks GitHub issues linked to this project for branch creation workflows.
+
+- [#10](https://github.com/marcomoi395/hera-nest/issues/10) - Build NestJS authentication system
+- [#15](https://github.com/marcomoi395/hera-nest/issues/15) - Add user dashboard
+- [#22](https://github.com/marcomoi395/hera-nest/issues/22) - Implement API rate limiting
+```
+
+**File location**: `tasks/LINKED_ISSUES.md` in the project root
+
+**Update behavior**: 
+- If file doesn't exist, create it with the header
+- If issue already linked, update the title
+- If new issue, append to the list
+- Keep entries sorted by issue number (ascending)
 
 ## Creating Issues
 
