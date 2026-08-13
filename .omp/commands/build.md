@@ -78,7 +78,25 @@ Before implementing any task, check for a GitHub issue URL:
 
 5. **Store the issue URL for commit message linking** (applies to both bypass and new branch scenarios)
    
-   Save the full issue URL to be used when creating commit messages in step 3 or 4. This ensures that all commits will include `Issue: <full-url>` at the end of the subject line, whether you're on a newly created branch or continuing work on an existing issue branch.
+   Save the full issue URL in memory. You will append it to the commit message subject line (first line, after the description and period) when committing in step 3 or step 4e.
+   
+   **Commit message format when issue URL exists:**
+   ```
+   <type>: <description>. Issue: <full-url>
+   
+   <optional body paragraphs>
+   ```
+   
+   **Example:**
+   ```
+   feat: add transaction-based state persistence. Issue: https://github.com/owner/repo/issues/10
+   
+   - Wrap state in Proxy to track mutations
+   - Add transaction() API for atomic operations
+   - Implement dirty field tracking
+   ```
+   
+   The issue URL MUST be on the subject line (first line), NOT in the body. This enables GitHub to auto-link the commit to the issue.
 #### c. If no issue URL is found
 
 Skip branch creation and continue on the current branch.
@@ -95,7 +113,7 @@ Pick the next pending task from `tasks/todo.md` or `tasks/plan.md`. Then:
 5. **Run the full test suite to check for regressions** — Ensure no existing tests break
 6. **Run the build to verify compilation** — Confirm the build succeeds
 7. **Run the formatter over changed files** — Apply consistent code style
-8. **Commit with a descriptive message** — Follow `git-workflow-and-versioning` or `git-commit` skill. If an issue URL was found in step 2, append it to the end of the first line (subject): `<type>: <description>. Issue: <full-url>`
+8. **Commit with a descriptive message** — Follow `git-workflow-and-versioning` or `git-commit` skill. **If an issue URL was stored in step 2, append it to the subject line (first line) after the description and a period: `<type>: <description>. Issue: <full-url>`**. Never put the issue URL in the body.
 9. **Mark the task complete and stop** — Update the task status and yield control
 ### 4. Autonomous mode: Implement the whole plan
 
@@ -127,14 +145,19 @@ This is the only human gate — after approval, run autonomously.
 
 If you generated `tasks/plan.md`, commit it as a single preparatory commit now so it doesn't bleed into the first task's commit.
 
-#### e. Execute every task in dependency order
+#### e. Execute every task in dependency order (LOOP UNTIL ALL COMPLETE)
 
 Use each task's declared dependencies; if they aren't explicit, execute in the order the plan lists them.
 
-For each task:
-1. Run the full default loop (step 2 above: RED → GREEN → regression → build → format → commit → mark complete)
+**LOOP through ALL pending tasks until none remain:**
+
+For each pending task:
+1. Run the full task implementation loop from step 3 above (RED → GREEN → regression → build → format → commit → mark complete)
 2. Stage only the files that task touched plus its task-status update — never `git add -A` blindly
 3. Make one commit per task so any point is a clean rollback
+4. Move to the next pending task and repeat
+
+Continue looping until all tasks in the plan are complete or you hit a blocker (see step 4f below).
 
 #### f. Stop and ask the user when:
 
@@ -164,7 +187,7 @@ Print a summary: tasks completed, tests added, commits made, and anything skippe
 - **MUST** automatically create a branch from the current branch when a GitHub issue URL is found (from any source).
 - **MUST** extract the issue number from the URL and include it in the branch name.
 - **MUST** determine the appropriate branch prefix (feat/, fix/, refactor/, chore/) based on the plan's goal.
-- **MUST** append the issue URL to the end of the commit subject line when a branch was created: `<type>: <description>. Issue: <full-url>` (NOT in the body)
+- **MUST** append the issue URL to the commit subject line (first line, after description and period) when stored in step 2: `<type>: <description>. Issue: <full-url>`. The issue URL MUST be on the subject line, NEVER in the body.
 - **MUST** invoke `incremental-implementation` and `test-driven-development` skills — do not implement their workflows inline.
 - **MUST** write a failing test before implementing each task (RED before GREEN).
 - **MUST** run the full test suite after each task to check for regressions.
@@ -178,3 +201,4 @@ Print a summary: tasks completed, tests added, commits made, and anything skippe
 - **MUST** follow `debugging-and-error-recovery` skill when tests or builds fail.
 - **MUST NOT** skip verification steps to go faster — every task earns a passing test.
 - **MUST NOT** implement multiple tasks in one commit in autonomous mode.
+- **MUST** loop through ALL pending tasks in autonomous mode until none remain or a blocker is hit — stopping after one task violates the autonomous mode contract.
