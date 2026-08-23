@@ -67,7 +67,31 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
 
-## 5. Parallel Subagents When Useful
+## 5. Rule and Context Selection Before Execution
+
+**Identify applicable rules and contexts before implementation. Use index, not brute-force review.**
+
+After receiving user prompt:
+
+- Pause and think.
+- List concrete tasks, checks, or subproblems to handle.
+- If project-specific `.omp/rules/RULES_INDEX.md` exists, read it before implementing.
+- If project-specific `.omp/contexts/CONTEXTS_INDEX.md` exists, read it before implementing.
+- Use indexes to determine which domain-specific or task-specific rules and contexts apply.
+- Read every project rule file identified as relevant from `.omp/rules` before taking action.
+- Read every project context file identified as relevant from `.omp/contexts` before taking action.
+- Do not begin implementation until relevant existing rule and context files have been read.
+- Don't scan all existing rules/contexts unless an index indicates broad review is needed.
+
+If project-specific `.omp/rules/RULES_INDEX.md` or `.omp/contexts/CONTEXTS_INDEX.md` is missing when working inside a project:
+
+- Say so explicitly.
+- State assumptions being made.
+- Proceed conservatively using only rules and contexts that are clearly applicable.
+
+The test: before taking action, agent has identified work to do, used project-specific `.omp/rules/RULES_INDEX.md` and `.omp/contexts/CONTEXTS_INDEX.md` when present to route selection, and read relevant existing files from `.omp/rules` and `.omp/contexts`.
+
+## 6. Parallel Subagents When Useful
 
 **Use `task` tool for independent work that benefits from parallelism. Do not spawn for trivial work.**
 
@@ -102,3 +126,4 @@ Available agent types (pick the most specific):
 - Omit `agent` field — General-purpose subagent with full capabilities for delegated multi-step tasks.
 
 The test: if work naturally splits into independent chunks, agent uses `task` to parallelize; if work is small or tightly sequential, agent handles it directly.
+
